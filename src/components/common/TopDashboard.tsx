@@ -1,6 +1,6 @@
 import { useEffect, useState, useTransition} from "react";
-import {getAllBoxes} from "../../api/BoxRequests.ts";
-import {Box, Typography} from "@mui/material";
+import {getAllBoxes, getAllBoxesAvaibility} from "../../api/BoxRequests.ts";
+import {Box, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import type {Cage} from "../../types/Cage.ts";
 
 const TopDashboard = () => {
@@ -9,7 +9,7 @@ const TopDashboard = () => {
 
     useEffect(() => {
         startTransition(async () => {
-            const boxes = await getAllBoxes();
+            const boxes = await getAllBoxesAvaibility();
             startTransition( () => {
                 setBoxes(boxes);
                 console.log(boxes);
@@ -19,11 +19,20 @@ const TopDashboard = () => {
 
     return (
         <>
+            <List>
             {boxes.map((box: Cage) => (
-                <Box key={box.id}>
-                    <Typography variant={"h2"}>{box.name}</Typography>
-                </Box>
+                <ListItemButton
+                    key={box.id}
+                >
+                    <ListItem secondaryAction={box.available === 0 ? <Typography color={"error"}>FULL</Typography> : `${box.available} place(s) left` }>
+                        <ListItemText
+                            primary={box.name}
+                            secondary={`${box.occupied}/${box.capacity}`}
+                        />
+                    </ListItem>
+                </ListItemButton>
             ))}
+            </List>
         </>
     )
 }

@@ -11,3 +11,15 @@ export const getAllBoxes = async () => {
             return err;
         })
 }
+
+export const getAllBoxesAvaibility = async () => {
+    return api.get('/boxes/avaibility')
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}
