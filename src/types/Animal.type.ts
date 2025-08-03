@@ -1,4 +1,4 @@
-export type Animal = {
+export type AnimalType = {
     id: number;
     name: string;
     type: string;
@@ -6,7 +6,7 @@ export type Animal = {
     sex: string;
     birthDate: string;
     arrivalDate: string;
-    behavior: string;
+    behaviour: string;
     health: string;
     picture: string;
     boxId: number;
