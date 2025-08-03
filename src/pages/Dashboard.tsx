@@ -47,20 +47,17 @@ const Dashboard = () => {
     return (
         <Box p={4}>
             <Typography variant="h4" gutterBottom>
-                Tableau de bord du refuge
+                Tableau de bord
             </Typography>
 
             <Grid container spacing={3} mb={4}>
-                    <Grid size={{xs: 12, md: 6, lg: 3}}>
                         <BoxStats></BoxStats>
                         <BoxStats></BoxStats>
                         <BoxStats></BoxStats>
                         <BoxStats></BoxStats>
-                    </Grid>
             </Grid>
 
             <Grid container spacing={3}>
-                {/* Graphique Animaux par type */}
                 <Grid size={{ xs: 12, md: 6}}>
                     <Card>
                         <CardContent>
@@ -79,7 +76,6 @@ const Dashboard = () => {
                     </Card>
                 </Grid>
 
-                {/* Adoptions récentes */}
                 <Grid size={{xs: 12, md: 6}}>
                     <Card>
                         <CardContent>
@@ -103,7 +99,6 @@ const Dashboard = () => {
                     </Card>
                 </Grid>
 
-                {/* Alertes santé */}
                 <Grid size={{xs: 12, md: 6}}>
                     <Card>
                         <CardContent>
