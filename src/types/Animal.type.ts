@@ -11,3 +11,15 @@ export type AnimalType = {
     picture: string;
     boxId: number;
 }
+
+export const emptyAnimal: AnimalType = {
+    name: "",
+    type: "",
+    race: "",
+    sex: "",
+    birthDate: "",
+    behaviour: "",
+    health: "",
+    picture: "",
+    boxId: 0
+};

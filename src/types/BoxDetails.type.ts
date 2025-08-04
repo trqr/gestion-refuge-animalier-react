@@ -8,3 +8,11 @@ export type BoxDetailsType = {
     address: string;
     animals?: AnimalType[];
 }
+
+export const emptyBoxDetails: BoxDetailsType = {
+    name: "",
+    type: "",
+    capacity: 0,
+    address: "",
+    animals: []
+};

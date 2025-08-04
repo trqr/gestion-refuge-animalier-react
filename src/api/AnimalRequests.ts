@@ -48,3 +48,15 @@ export const addAnimal = async (animal: AnimalType) => {
             return err;
         })
 }
+
+export const boxSwitching = async (animalId: number, boxId: number) => {
+    return api.patch(`/animals/${animalId}?boxId=${boxId}`)
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}

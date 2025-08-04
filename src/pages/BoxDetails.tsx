@@ -1,9 +1,10 @@
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useNavigate} from "react-router-dom";
 import {Box, Card, CardContent, CardMedia, Chip, Divider, Grid, Paper, Stack, Typography} from "@mui/material";
 import type {BoxDetailsType} from "../types/BoxDetails.type.ts";
 
 const BoxDetails = () => {
     const boxData: BoxDetailsType = useLoaderData();
+    const navigate = useNavigate();
 
     return (
         <Box p={4}>
@@ -16,7 +17,7 @@ const BoxDetails = () => {
                     <Chip label={`Capacité: ${boxData.capacity}`} color="secondary"/>
                     <Chip label={`Adresse: ${boxData.address}`}/>
                     <Chip
-                        label={`Animaux présents: ${boxData.animals.length}`}
+                        label={`Animaux présents: ${boxData.animals!.length}`}
                         color="success"
                     />
                 </Stack>
@@ -26,9 +27,9 @@ const BoxDetails = () => {
                 Animaux dans ce box
             </Typography>
             <Grid container spacing={3}>
-                {boxData.animals.map((animal) => (
-                    <Grid item xs={12} sm={6} md={4} key={animal.id}>
-                        <Card>
+                {boxData.animals!.map((animal) => (
+                    <Grid size={{xs: 12, sm: 6, md: 4}} key={animal.id}>
+                        <Card onClick={() => navigate(`/animal/${animal.id}`)}>
                             <CardMedia
                                 component="img"
                                 height="200"
@@ -49,7 +50,7 @@ const BoxDetails = () => {
                                         Né(e): {new Date(animal.birthDate).toLocaleDateString()}
                                     </Typography>
                                     <Typography variant="body2">
-                                        Arrivé(e): {new Date(animal.arrivalDate).toLocaleDateString()}
+                                        Arrivé(e): {new Date(animal.arrivalDate!).toLocaleDateString()}
                                     </Typography>
                                     <Typography variant="body2">
                                         Comportement: {animal.behaviour}

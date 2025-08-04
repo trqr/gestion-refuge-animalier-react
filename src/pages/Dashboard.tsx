@@ -15,14 +15,9 @@ import {
 import React from "react";
 import {BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
 import BoxStats from "../components/common/BoxStats.tsx";
+import AnimalStats from "../components/common/AnimalStats.tsx";
+import ThemeSwitch from "../theme/ThemeSwitch.tsx";
 
-// FAKE DATA
-const stats = [
-    {label: "Boxes", value: 12},
-    {label: "Animaux", value: 47},
-    {label: "Adoptions ce mois", value: 8},
-    {label: "Soins en cours", value: 5},
-];
 
 const animalsByType = [
     {type: "Chien", count: 20},
@@ -46,13 +41,17 @@ const healthAlerts = [
 const Dashboard = () => {
     return (
         <Box p={4}>
-            <Typography variant="h4" gutterBottom>
-                Tableau de bord
-            </Typography>
+            <Box sx={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between"}}>
+                <Typography variant="h4" gutterBottom>
+                    Tableau de bord
+                </Typography>
+                <ThemeSwitch></ThemeSwitch>
+            </Box>
+
 
             <Grid container spacing={3} mb={4}>
                         <BoxStats></BoxStats>
-                        <BoxStats></BoxStats>
+                        <AnimalStats></AnimalStats>
                         <BoxStats></BoxStats>
                         <BoxStats></BoxStats>
             </Grid>

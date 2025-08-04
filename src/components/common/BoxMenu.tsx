@@ -1,23 +1,20 @@
 import { useEffect, useState, useTransition} from "react";
 import {createBox, getAllBoxesAvaibility} from "../../api/BoxRequests.ts";
 import {
-    Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemButton, ListItemText, Skeleton,
+    Button, Dialog, DialogActions, DialogContent, DialogTitle,
+    IconButton, List, ListItem, ListItemButton, ListItemText, Skeleton,
     TextField, Typography
 } from "@mui/material";
 import type {BoxAvailabilityType} from "../../types/BoxAvailability.type.ts";
 import {useNavigate} from "react-router-dom";
-import type {BoxDetailsType} from "../../types/BoxDetails.type.ts";
+import {type BoxDetailsType, emptyBoxDetails} from "../../types/BoxDetails.type.ts";
+import AddIcon from "@mui/icons-material/Add";
 
 const BoxMenu = () => {
     const [boxes, setBoxes] = useState<BoxAvailabilityType[]>([]);
     const [isPending, startTransition] = useTransition();
     const [openDialog, setOpenDialog] = useState(false);
-    const [newBox, setNewBox] = useState<BoxDetailsType>({
-        name: "",
-        type: "",
-        capacity: 0,
-        address: ""
-    });
+    const [newBox, setNewBox] = useState<BoxDetailsType>(emptyBoxDetails);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -46,14 +43,17 @@ const BoxMenu = () => {
 
     return (
         <>
-            <List sx={{backgroundColor: "Background"}}>
-                <ListItem>
-                    <Button variant="contained" fullWidth onClick={() => setOpenDialog(true)}>
-                        Ajouter un box
-                    </Button>
+            <List sx={{bgcolor: 'background.paper'}}>
+                <ListItem secondaryAction={
+                    <IconButton edge="end" aria-label="add" onClick={() => setOpenDialog(true)}>
+                        <AddIcon></AddIcon>
+                    </IconButton>}>
+                    <ListItemText
+                        primary={"Ajouter un Box"}
+                    />
                 </ListItem>
             </List>
-            <List sx={{backgroundColor: "Background"}}>
+            <List sx={{bgcolor: 'background.paper'}}>
             {isPending
                 ? <Skeleton></Skeleton>
                 : boxes.map((box: BoxAvailabilityType) => (
