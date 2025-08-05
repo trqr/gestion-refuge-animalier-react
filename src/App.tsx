@@ -2,7 +2,6 @@ import './App.css'
 import {ToastContainer} from "react-toastify";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./Router.tsx";
-import {Container} from "@mui/material";
 
 function App() {
 
@@ -14,9 +13,7 @@ function App() {
               theme="colored"
               closeOnClick={false}
           />
-          <Container>
-             <RouterProvider router={router}/>
-          </Container>
+          <RouterProvider router={router}/>
       </>
   )
 }

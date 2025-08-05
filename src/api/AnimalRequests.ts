@@ -1,5 +1,6 @@
 import {api} from "./axios.config.ts";
 import type {AnimalType} from "../types/Animal.type.ts";
+import {toast} from "react-toastify";
 
 export const getAnimals = async () => {
     return api.get('/animals')
@@ -49,8 +50,22 @@ export const addAnimal = async (animal: AnimalType) => {
         })
 }
 
-export const boxSwitching = async (animalId: number, boxId: number) => {
-    return api.patch(`/animals/${animalId}?boxId=${boxId}`)
+export const boxSwitching = async (animal: AnimalType, boxId: number) => {
+    return api.patch(`/animals/${animal.id}?boxId=${boxId}`)
+        .then(res => {
+            console.log(res.data);
+            toast.success(`Transfère réussi! ${animal.name} est bien arrivé dans son nouveau Box ID: ${boxId}`);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            toast.error(err);
+            return err;
+        })
+}
+
+export const getAnimalBox = async (animalId: number) => {
+    return api.get(`/animals/getbox/${animalId}`)
         .then(res => {
             console.log(res.data);
             return res.data

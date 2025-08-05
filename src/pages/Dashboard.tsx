@@ -1,5 +1,4 @@
 import {
-    Box,
     Grid,
     Paper,
     Typography,
@@ -14,9 +13,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import {BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
-import BoxStats from "../components/common/BoxStats.tsx";
-import AnimalStats from "../components/common/AnimalStats.tsx";
-import ThemeSwitch from "../theme/ThemeSwitch.tsx";
 
 
 const animalsByType = [
@@ -40,22 +36,6 @@ const healthAlerts = [
 
 const Dashboard = () => {
     return (
-        <Box p={4}>
-            <Box sx={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between"}}>
-                <Typography variant="h4" gutterBottom>
-                    Tableau de bord
-                </Typography>
-                <ThemeSwitch></ThemeSwitch>
-            </Box>
-
-
-            <Grid container spacing={3} mb={4}>
-                        <BoxStats></BoxStats>
-                        <AnimalStats></AnimalStats>
-                        <BoxStats></BoxStats>
-                        <BoxStats></BoxStats>
-            </Grid>
-
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 6}}>
                     <Card>
@@ -127,7 +107,6 @@ const Dashboard = () => {
                     </Card>
                 </Grid>
             </Grid>
-        </Box>
     );
 };
 
