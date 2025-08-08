@@ -1,8 +1,9 @@
 import {Box, Grid, Typography} from "@mui/material";
 import ThemeSwitch from "../../theme/ThemeSwitch.tsx";
-import BoxStats from "../../components/common/BoxStats.tsx";
-import AnimalStats from "../../components/common/AnimalStats.tsx";
+import BoxStats from "../../components/common/header/BoxStats.tsx";
+import AnimalStats from "../../components/common/header/AnimalStats.tsx";
 import {useNavigate} from "react-router-dom";
+import HealthStats from "../../components/common/header/HealthStats.tsx";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Header = () => {
             <Grid container spacing={3} mb={4}>
                 <BoxStats></BoxStats>
                 <AnimalStats></AnimalStats>
-                <BoxStats></BoxStats>
+                <HealthStats></HealthStats>
                 <BoxStats></BoxStats>
             </Grid>
         </>

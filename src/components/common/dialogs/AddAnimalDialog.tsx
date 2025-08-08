@@ -7,7 +7,7 @@ import {
     Button,
     MenuItem
 } from "@mui/material";
-import type {AnimalType} from "../../types/Animal.type.ts";
+import type {AnimalType} from "../../../types/Animal.type.ts";
 
 type AddAnimalDialogProps = {
     open: boolean;

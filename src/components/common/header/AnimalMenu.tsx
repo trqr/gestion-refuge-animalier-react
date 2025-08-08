@@ -1,24 +1,17 @@
-import {IconButton, List, ListItem, ListItemButton, ListItemText, Skeleton, Typography} from "@mui/material";
+import {IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import {useEffect, useState, useTransition} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {type AnimalType, emptyAnimal} from "../../types/Animal.type.ts";
-import {addAnimal, getAnimals} from "../../api/AnimalRequests.ts";
-import AddAnimalDialog from "./AddAnimalDialog.tsx";
+import {type AnimalType, emptyAnimal} from "../../../types/Animal.type.ts";
+import {addAnimal} from "../../../api/AnimalRequests.ts";
+import AddAnimalDialog from "../dialogs/AddAnimalDialog.tsx";
+import PetsIcon from '@mui/icons-material/Pets';
 
 const AnimalMenu = () => {
-    const [animals, setAnimals] = useState<AnimalType[]>([]);
-    const [isPending, startTransition] = useTransition();
     const [openDialog, setOpenDialog] = useState(false);
     const [newAnimal, setNewAnimal] = useState<AnimalType>(emptyAnimal);
     const navigate = useNavigate()
 
-    useEffect(() => {
-        startTransition(async () => {
-            const fetchedAnimals = await getAnimals();
-            setAnimals(fetchedAnimals);
-        })
-    }, [])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
@@ -44,22 +37,14 @@ const AnimalMenu = () => {
                         primary={"Ajouter un animal"}
                     />
                 </ListItem>
-            {isPending
-                ? <Skeleton></Skeleton>
-                : animals.map((animal: AnimalType) => (
-                    <ListItemButton
-                        key={animal.id}
-                        onClick={() => navigate(`animal/${animal.id}`)}
-                    >
-                        <ListItem secondaryAction={
-                            <Typography color={"textPrimary"}>{animal.race}</Typography>}>
-                            <ListItemText
-                                primary={animal.name}
-                                secondary={`${animal.sex} - ${animal.type}`}
-                            />
-                        </ListItem>
-                    </ListItemButton>
-                ))}
+                <ListItemButton onClick={() => navigate("/animals")}>
+                    <ListItem secondaryAction={<PetsIcon color="primary"/>
+                    }>
+                        <ListItemText
+                            primary={"Afficher la liste"}
+                        />
+                    </ListItem>
+                </ListItemButton>
         </List>
         <AddAnimalDialog
             newAnimal={newAnimal}

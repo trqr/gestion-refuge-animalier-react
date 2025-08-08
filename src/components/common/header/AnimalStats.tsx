@@ -1,8 +1,8 @@
 import {Box, Grid, Paper, Skeleton, Typography} from "@mui/material";
 import BoxMenu from "./BoxMenu.tsx";
 import {useEffect, useState, useTransition} from "react";
-import {getNumberOfBoxes, getNumberOfUsedBoxes} from "../../api/BoxRequests.ts";
-import {getNumberOfAnimals} from "../../api/AnimalRequests.ts";
+import {getNumberOfBoxes, getNumberOfUsedBoxes} from "../../../api/BoxRequests.ts";
+import {getNumberOfAnimals} from "../../../api/AnimalRequests.ts";
 import AnimalMenu from "./AnimalMenu.tsx";
 
 const AnimalStats = () => {
@@ -25,7 +25,7 @@ const AnimalStats = () => {
         <Grid size={{xs: 12, md: 6, lg: 3}}>
             <Box position="relative" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 <Paper elevation={3} sx={{p: 3, textAlign: "center"}}>
-                    <Typography variant="h6">Animals</Typography>
+                    <Typography variant="h6">Animaux</Typography>
                     <Typography variant="h4" color="primary">{isPending ?
                         <Skeleton></Skeleton> : totalAnimals}</Typography>
                 </Paper>

@@ -1,13 +1,13 @@
 import { useEffect, useState, useTransition} from "react";
-import {createBox, getAllBoxesAvaibility} from "../../api/BoxRequests.ts";
+import {createBox, getAllBoxesAvaibility} from "../../../api/BoxRequests.ts";
 import {
     Button, Dialog, DialogActions, DialogContent, DialogTitle,
     IconButton, List, ListItem, ListItemButton, ListItemText, Skeleton,
     TextField, Typography
 } from "@mui/material";
-import type {BoxAvailabilityType} from "../../types/BoxAvailability.type.ts";
+import type {BoxAvailabilityType} from "../../../types/BoxAvailability.type.ts";
 import {useNavigate} from "react-router-dom";
-import {type BoxDetailsType, emptyBoxDetails} from "../../types/BoxDetails.type.ts";
+import {type BoxDetailsType, emptyBoxDetails} from "../../../types/BoxDetails.type.ts";
 import AddIcon from "@mui/icons-material/Add";
 
 const BoxMenu = () => {

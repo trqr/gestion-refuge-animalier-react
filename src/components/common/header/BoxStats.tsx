@@ -1,7 +1,7 @@
 import {useEffect, useState, useTransition} from "react";
 import {Paper, Typography, Box, Skeleton, Grid} from "@mui/material";
-import BoxMenu from "./BoxMenu";
-import {getNumberOfBoxes, getNumberOfUsedBoxes} from "../../api/BoxRequests.ts";
+import BoxMenu from "./BoxMenu.tsx";
+import {getNumberOfBoxes, getNumberOfUsedBoxes} from "../../../api/BoxRequests.ts";
 
 const BoxStats = () => {
     const [hover, setHover] = useState(false);
@@ -24,7 +24,7 @@ const BoxStats = () => {
         <Grid size={{xs: 12, md: 6, lg: 3}}>
             <Box position="relative" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 <Paper elevation={3} sx={{p: 3, textAlign: "center"}}>
-                    <Typography variant="h6">Boxes</Typography>
+                    <Typography variant="h6">Box</Typography>
                     <Typography variant="h4" color="primary">{isPending ? <Skeleton></Skeleton> : totalNumberOfUsedBoxes} / {totalNumberOfBoxes}</Typography>
                 </Paper>
                 {hover && (
