@@ -10,6 +10,7 @@ export type AnimalType = {
     health: string;
     picture: string;
     boxId: number;
+    adopted: boolean;
 }
 
 export const emptyAnimal: AnimalType = {
@@ -21,5 +22,6 @@ export const emptyAnimal: AnimalType = {
     behaviour: "",
     health: "",
     picture: "",
-    boxId: 0
+    boxId: 0,
+    adopted: false,
 };

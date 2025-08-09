@@ -44,14 +44,17 @@ const BoxMenu = () => {
     return (
         <>
             <List sx={{bgcolor: 'background.paper'}}>
-                <ListItem secondaryAction={
-                    <IconButton edge="end" aria-label="add" onClick={() => setOpenDialog(true)}>
-                        <AddIcon></AddIcon>
-                    </IconButton>}>
-                    <ListItemText
-                        primary={"Ajouter un Box"}
-                    />
-                </ListItem>
+                <ListItemButton onClick={() => setOpenDialog(true)}>
+                    <ListItem secondaryAction={
+                        <IconButton edge="end" aria-label="add" >
+                            <AddIcon></AddIcon>
+                        </IconButton>}>
+                        <ListItemText
+                            primary={"Ajouter un Box"}
+                        />
+                    </ListItem>
+                </ListItemButton>
+
             </List>
             <List sx={{bgcolor: 'background.paper'}}>
             {isPending

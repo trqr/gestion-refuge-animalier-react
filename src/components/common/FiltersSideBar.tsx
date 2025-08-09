@@ -18,6 +18,7 @@ type Filters = {
     sex: string;
     behaviour: string;
     health: string;
+    adopted: string;
 };
 
 interface FiltersSideBarProps {
@@ -33,6 +34,7 @@ const FiltersSideBar = ({animals, onFilteredChange}: FiltersSideBarProps) => {
         sex: "",
         behaviour: "",
         health: "",
+        adopted: "",
     });
 
     const handleChange = (field: keyof Filters, value: string) => {
@@ -47,6 +49,7 @@ const FiltersSideBar = ({animals, onFilteredChange}: FiltersSideBarProps) => {
             sex: "",
             behaviour: "",
             health: "",
+            adopted: "",
         });
     };
 
@@ -64,7 +67,9 @@ const FiltersSideBar = ({animals, onFilteredChange}: FiltersSideBarProps) => {
                         .toLowerCase()
                         .includes(filters.behaviour.toLowerCase())) &&
                 (!filters.health ||
-                    animal.health.toLowerCase().includes(filters.health.toLowerCase()))
+                    animal.health.toLowerCase().includes(filters.health.toLowerCase())) &&
+                (!filters.adopted ||
+                    String(animal.adopted) === filters.adopted)
             );
         });
     }, [animals, filters]);
@@ -139,6 +144,18 @@ const FiltersSideBar = ({animals, onFilteredChange}: FiltersSideBarProps) => {
                 onChange={(e) => handleChange("health", e.target.value)}
                 size="small"
             />
+
+            <FormControl size="small">
+                <InputLabel>Adoption</InputLabel>
+                <Select
+                    value={filters.adopted}
+                    onChange={(e) => handleChange("adopted", e.target.value)}
+                >
+                    <MenuItem value="">Tous</MenuItem>
+                    <MenuItem value="true">Adoptés</MenuItem>
+                    <MenuItem value="false">Non adoptés</MenuItem>
+                </Select>
+            </FormControl>
 
             <Button variant="outlined" color="secondary" onClick={handleReset}>
                 Réinitialiser

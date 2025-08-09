@@ -2,6 +2,7 @@ import {IconButton, List, ListItem, ListItemButton, ListItemText, Typography} fr
 import type {HealthCareType} from "../../../types/HealthCare.type.ts";
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 
 type HealthMenuProps = {
@@ -13,13 +14,16 @@ const HealthMenu = ({healthCares}: HealthMenuProps) => {
 
     return (
         <List sx={{bgcolor: 'background.paper'}}>
-            <ListItem secondaryAction={
-                <IconButton edge="end" aria-label="add">
-                </IconButton>}>
-                <ListItemText
-                    primary={"Planifier un soin"}
-                />
-            </ListItem>
+            <ListItemButton>
+                <ListItem secondaryAction={
+                    <IconButton edge="end" aria-label="add">
+                        <ScheduleIcon></ScheduleIcon>
+                    </IconButton>}>
+                    <ListItemText
+                        primary={"Planifier un soin"}
+                    />
+                </ListItem>
+            </ListItemButton>
             {healthCares.map(healthCare => (
                 <ListItemButton key={healthCare.id}>
                     <ListItem secondaryAction={<Typography variant={"subtitle2"}>{dayjs().to(dayjs(healthCare.date))}</Typography>}>

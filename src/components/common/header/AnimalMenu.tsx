@@ -29,6 +29,7 @@ const AnimalMenu = () => {
     return (
         <>
         <List sx={{bgcolor: 'background.paper'}}>
+            <ListItemButton onClick={() => setOpenDialog(true)}>
                 <ListItem secondaryAction={
                     <IconButton edge="end" aria-label="add" onClick={() => setOpenDialog(true)}>
                         <AddIcon></AddIcon>
@@ -37,6 +38,7 @@ const AnimalMenu = () => {
                         primary={"Ajouter un animal"}
                     />
                 </ListItem>
+            </ListItemButton>
                 <ListItemButton onClick={() => navigate("/animals")}>
                     <ListItem secondaryAction={<PetsIcon color="primary"/>
                     }>
