@@ -52,7 +52,7 @@ const AnimalDetails = () => {
             <CardMedia
                 component="img"
                 height="300"
-                image={animal.picture || "/placeholder.jpg"} // Mets un fallback si l’image est vide
+                image={animal.picture || "/placeholder.jpg"}
                 alt={animal.name}
                 sx={{objectFit: "cover"}}
             />
