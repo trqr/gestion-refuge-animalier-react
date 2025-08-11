@@ -10,12 +10,12 @@ const AnimalsList = () => {
     const [filteredAnimals, setFilteredAnimals] = useState<AnimalType[]>(animals);
 
     return (
-        <Box sx={{display: "flex", flexDirection: "row", height: "100%"}}>
+        <Box sx={{display: "flex", flexDirection: "row", height: "100%", justifyContent: "space-between"}}>
             <FiltersSideBar
                 animals={animals}
                 onFilteredChange={setFilteredAnimals}
             />
-            <Box sx={{flex: 1, p: 2}}>
+            <Box sx={{flex: 1, paddingLeft: 2}}>
                 <Grid container spacing={2}>
                     {filteredAnimals.map((animal) => (
                         <AnimalCard key={animal.id} animal={animal}/>

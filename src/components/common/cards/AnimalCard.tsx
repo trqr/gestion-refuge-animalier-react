@@ -11,7 +11,7 @@ const AnimalCard = ({animal}: AnimalCardProps) => {
     return (
         <>
             <Grid size={{xs: 12, sm: 6, md: 4}} key={animal.id}>
-                <Card onClick={() => navigate(`/animal/${animal.id}`)}>
+                <Card sx={{cursor: "pointer"}} onClick={() => navigate(`/animal/${animal.id}`)}>
                     <CardMedia
                         component="img"
                         height="200"

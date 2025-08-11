@@ -81,8 +81,8 @@ const FiltersSideBar = ({animals, onFilteredChange}: FiltersSideBarProps) => {
     return (
         <Box
             sx={{
-                width: "30%",
-                padding: 2,
+                width: "22%",
+                paddingRight: 2,
                 borderRight: "1px solid #ccc",
                 display: "flex",
                 flexDirection: "column",

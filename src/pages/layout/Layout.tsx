@@ -1,4 +1,3 @@
-// src/components/Layout.tsx
 import {Outlet} from "react-router-dom";
 import {Container} from "@mui/material";
 import Header from "./Header.tsx";

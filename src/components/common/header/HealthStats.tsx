@@ -1,5 +1,4 @@
 import {Box, Grid, Paper, Skeleton, Typography} from "@mui/material";
-import BoxMenu from "./BoxMenu.tsx";
 import {useEffect, useState, useTransition} from "react";
 import type {HealthCareType} from "../../../types/HealthCare.type.ts";
 import {getNextHealthCares} from "../../../api/HealthCareRequests.ts";
