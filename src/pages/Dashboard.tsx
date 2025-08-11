@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import {BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
+import {useLoaderData} from "react-router-dom";
+import type {AdoptionType} from "../types/Adoption.type.ts";
 
 
 const animalsByType = [
@@ -22,12 +24,6 @@ const animalsByType = [
     {type: "Autre", count: 2},
 ];
 
-const recentAdoptions = [
-    {name: "Luna", type: "Chat", date: "2025-08-01"},
-    {name: "Rocky", type: "Chien", date: "2025-07-29"},
-    {name: "Bibi", type: "Lapin", date: "2025-07-25"},
-];
-
 const healthAlerts = [
     {animal: "Milo", issue: "Fièvre", level: "Urgent"},
     {animal: "Nina", issue: "Problème digestif", level: "Modéré"},
@@ -35,6 +31,8 @@ const healthAlerts = [
 ];
 
 const Dashboard = () => {
+    const recentAdoptions = useLoaderData();
+
     return (
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 6}}>
@@ -62,12 +60,12 @@ const Dashboard = () => {
                                 Adoptions récentes
                             </Typography>
                             <List dense>
-                                {recentAdoptions.map((adopt, i) => (
+                                {recentAdoptions.map((adopt: AdoptionType, i: number) => (
                                     <React.Fragment key={i}>
-                                        <ListItem>
+                                        <ListItem secondaryAction={`Statut: ${adopt.status}`}>
                                             <ListItemText
-                                                primary={`${adopt.name} (${adopt.type})`}
-                                                secondary={`Adopté le ${new Date(adopt.date).toLocaleDateString()}`}
+                                                primary={`${adopt.animal.name} (${adopt.animal.type}) par ${adopt.adopter.name}`}
+                                                secondary={`Dossier ouvert le ${new Date(adopt.date).toLocaleDateString()}`}
                                             />
                                         </ListItem>
                                         {i < recentAdoptions.length - 1 && <Divider/>}

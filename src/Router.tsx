@@ -6,6 +6,7 @@ import {getAnimalById, getAnimals} from "./api/AnimalRequests.ts";
 import AnimalDetails from "./pages/AnimalDetails.tsx";
 import Layout from "./pages/layout/Layout.tsx";
 import AnimalsList from "./pages/AnimalsList.tsx";
+import {getLast5Adoptions} from "./api/AdoptionRequests.ts";
 
 
 export const router = createBrowserRouter([
@@ -15,7 +16,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Dashboard/>
+                element: <Dashboard/>,
+                loader: () => getLast5Adoptions()
             },
             {
                 path: "/box/:id",
