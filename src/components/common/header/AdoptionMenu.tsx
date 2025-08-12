@@ -3,9 +3,11 @@ import {useState} from "react";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import RuleIcon from '@mui/icons-material/Rule';
 import CreateAdoptionDialog from "../dialogs/CreateAdoptionDialog.tsx";
+import {useNavigate} from "react-router-dom";
 
 const AdoptionMenu = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -20,7 +22,7 @@ const AdoptionMenu = () => {
                         </ListItemText>
                     </ListItem>
                 </ListItemButton>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigate("/adoptions")}>
                     <ListItem secondaryAction={
                         <IconButton edge="end" aria-label="add">
                             <RuleIcon fontSize={"small"}></RuleIcon>

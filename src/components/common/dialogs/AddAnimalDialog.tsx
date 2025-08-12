@@ -5,17 +5,19 @@ import {
     DialogActions,
     TextField,
     Button,
-    MenuItem
+    MenuItem, Select, type SelectChangeEvent
 } from "@mui/material";
 import type {AnimalType} from "../../../types/Animal.type.ts";
+import {useEffect, useState, useTransition} from "react";
+import type {BoxDetailsType} from "../../../types/BoxDetails.type.ts";
+import {getAllBoxes} from "../../../api/BoxRequests.ts";
 
 type AddAnimalDialogProps = {
     open: boolean;
     onClose: () => void;
     onSubmit: () => void;
     newAnimal: AnimalType;
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-};
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => void;};
 
 const AddAnimalDialog = ({
                              open,
@@ -24,6 +26,17 @@ const AddAnimalDialog = ({
                              newAnimal,
                              handleInputChange
                          }: AddAnimalDialogProps) => {
+
+    const [boxes, setBoxes] = useState<BoxDetailsType[]>([])
+    const [isPending, startTransition] = useTransition()
+
+    useEffect(() => {
+        startTransition( async () => {
+            const fetchedBoxes = await getAllBoxes();
+            setBoxes(fetchedBoxes);
+        })
+    }, []);
+
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
             <DialogTitle>Ajouter un nouvel animal</DialogTitle>
@@ -92,14 +105,22 @@ const AddAnimalDialog = ({
                     onChange={handleInputChange}
                     fullWidth
                 />
-                <TextField
-                    label="Box ID"
+                <Select
+                    fullWidth
                     name="boxId"
-                    type="number"
                     value={newAnimal.boxId}
                     onChange={handleInputChange}
-                    fullWidth
-                />
+                >
+                    <MenuItem
+                        value={0}
+                        disabled
+                    >Selectionnez le box</MenuItem>
+                    {boxes.map((box) => (
+                        <MenuItem key={box.id} value={box.id} disabled={(box.animals!.length >= box.capacity)}>
+                            {box.name} — {box.address}
+                        </MenuItem>
+                    ))}
+                </Select>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Annuler</Button>

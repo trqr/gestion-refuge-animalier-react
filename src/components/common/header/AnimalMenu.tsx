@@ -1,4 +1,4 @@
-import {IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {IconButton, List, ListItem, ListItemButton, ListItemText, type SelectChangeEvent} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -13,7 +13,7 @@ const AnimalMenu = () => {
     const navigate = useNavigate()
 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent) => {
         const {name, value} = e.target;
         setNewAnimal(prev => ({
             ...prev,

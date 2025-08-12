@@ -59,7 +59,7 @@ export const boxSwitching = async (animal: AnimalType, boxId: number) => {
         })
         .catch(err => {
             console.log(err);
-            toast.error(err);
+            toast.error(err.response.data);
             return err;
         })
 }

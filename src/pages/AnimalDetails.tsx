@@ -164,7 +164,7 @@ const AnimalDetails = () => {
                     onChange={(e) => setSelectedBoxId(Number(e.target.value))}
                 >
                     {boxes.map((box) => (
-                        <MenuItem key={box.id} value={box.id}>
+                        <MenuItem key={box.id} value={box.id} disabled={(box.animals!.length >= box.capacity)}>
                             {box.name} — {box.address}
                         </MenuItem>
                     ))}

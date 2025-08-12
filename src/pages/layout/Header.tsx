@@ -12,7 +12,7 @@ const Header = () => {
         <>
             <Box sx={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", margin: "10px"}}>
                 <Typography variant="h4" sx={{cursor: "pointer"}}  onClick={() => navigate("/")} gutterBottom>
-                    Tableau de bord
+                    Tableau de bord du refuge animalier
                 </Typography>
                 <ThemeSwitch></ThemeSwitch>
             </Box>
