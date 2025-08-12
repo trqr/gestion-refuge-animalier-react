@@ -20,14 +20,21 @@ import {getAllBoxes} from "../api/BoxRequests.ts";
 import {boxSwitching, getAnimalBox} from "../api/AnimalRequests.ts";
 import {getAnimalFood} from "../api/FoodRequests.ts";
 import type {FoodType} from "../types/Food.type.ts";
+import {getAnimalHealthCares, getAnimalNextHealthCare, getNextHealthCares} from "../api/HealthCareRequests.ts";
+import type {HealthCareType} from "../types/HealthCare.type.ts";
+import AddHealthCareDialog from "../components/common/dialogs/AddHealthCareDialog.tsx";
 
 const AnimalDetails = () => {
     const animal: AnimalType = useLoaderData();
     const [boxes, setBoxes] = useState<BoxDetailsType[]>([]);
     const [animalBox, setAnimalBox] = useState<BoxDetailsType>()
     const [animalFood, setAnimalFood] = useState<FoodType[]>([]);
+    const [animalHealthCares, setAnimalHealthCares] = useState<HealthCareType[]>([])
+    const [nextHealthCare, setNextHealthCare] = useState<HealthCareType | null>(null);
     const [openDialog, setOpenDialog] = useState(false);
+    const [openHealthCareDialog, setOpenHealthCareDialog] = useState(false);
     const [selectedBoxId, setSelectedBoxId] = useState<number>(animal.boxId);
+    const [imgSrc, setImgSrc] = useState(animal.picture || "https://placehold.co/1200x1200");
     const [isPending, startTransition] = useTransition()
 
     const handleChangeBox = async () => {
@@ -40,23 +47,29 @@ const AnimalDetails = () => {
             const fetchedBoxes: BoxDetailsType[] = await getAllBoxes();
             const fetchedAnimalBox: BoxDetailsType = await getAnimalBox(animal.id!);
             const fetchedFood: FoodType[] = await getAnimalFood(animal.id!);
+            const fetchedHealthCares = await getAnimalHealthCares(animal.id!)
+            const fetchedNextHealthCare = await getAnimalNextHealthCare(animal.id!)
             setBoxes(fetchedBoxes);
             setAnimalBox(fetchedAnimalBox);
             setAnimalFood(fetchedFood);
+            setAnimalHealthCares(fetchedHealthCares);
+            setNextHealthCare(fetchedNextHealthCare);
         })
     }, [selectedBoxId]);
 
     return (
         <>
-        <Card sx={{maxWidth: 600, margin: "2rem auto", borderRadius: 4, boxShadow: 4}}>
-            <CardMedia
-                component="img"
-                height="300"
-                image={animal.picture || "/placeholder.jpg"}
-                alt={animal.name}
-                sx={{objectFit: "cover"}}
-            />
-            <CardContent>
+        <Card sx={{margin: "2rem auto", borderRadius: 4, boxShadow: 4, display: "flex"}}>
+            <Box sx={{width: "45%"}}>
+                <CardMedia
+                    component="img"
+                    image={imgSrc}
+                    alt={animal.name}
+                    onError={() => setImgSrc("https://placehold.co/1200x1800")}
+                    sx={{objectFit: "cover"}}
+                />
+            </Box>
+            <CardContent sx={{width: "60%"}}>
                 <Typography variant="h4" gutterBottom>
                     {animal.name}
                 </Typography>
@@ -74,8 +87,9 @@ const AnimalDetails = () => {
                         </Typography>
                         <Typography variant="subtitle1"><strong>Box :</strong> {animalBox?.name}
                             <Button
+                                sx={{margin: "0 10px"}}
                                 size={"small"}
-                            variant="outlined" onClick={() => setOpenDialog(true)}>
+                            variant="contained" onClick={() => setOpenDialog(true)}>
                             Changer de box
                         </Button></Typography>
                     </Grid>
@@ -83,13 +97,34 @@ const AnimalDetails = () => {
 
                 <Divider sx={{my: 2}}/>
 
-                <Box>
-                    <Typography variant="subtitle1"><strong>Comportement :</strong></Typography>
-                    <Typography variant="body1" sx={{mb: 2}}>{animal.behaviour}</Typography>
-
-                    <Typography variant="subtitle1"><strong>Santé :</strong></Typography>
-                    <Typography variant="body1">{animal.health}</Typography>
-                </Box>
+                <Grid container spacing={2}>
+                    <Grid size={{xs: 6}} sx={{display: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
+                        <Typography variant="subtitle1"><strong>Santé :</strong> {animal.health}</Typography>
+                        <Typography variant="subtitle1"><strong>Comportement :</strong> {animal.behaviour}</Typography>
+                        <Typography variant="subtitle1">
+                            <strong>Prochain soin :</strong>{" "}
+                            {nextHealthCare
+                                ? `${nextHealthCare.type} le ${nextHealthCare.date} (Vétérinaire : ${nextHealthCare.veterinarian.name})`
+                                : "Aucun rendez-vous prévu."}
+                        </Typography>
+                        <Button variant={"contained"} size={"small"} sx={{width: "50%"}} onClick={() => setOpenHealthCareDialog(true)}>Prendre un rdv</Button>
+                    </Grid>
+                    <Grid size={{xs: 6}}>
+                        <Typography variant="h6" gutterBottom>Soins</Typography>
+                        {animalHealthCares.length === 0 ? <Typography> Aucun soin sur cet animal.</Typography>
+                        : animalHealthCares.map((healthCare: HealthCareType) =>
+                                <Card key={healthCare.id} variant="outlined" sx={{p: 2}}>
+                                    <Typography variant="subtitle1">{healthCare.type} le {healthCare.date}</Typography>
+                                    <Typography variant="body2"><strong>Vétérinaire
+                                        :</strong> {healthCare.veterinarian.name}</Typography>
+                                    {healthCare.description && (
+                                        <Typography variant="body2"><strong>Description
+                                            :</strong> {healthCare.description}</Typography>
+                                    )}
+                                </Card>
+                            )}
+                    </Grid>
+                </Grid>
                 <Divider sx={{my: 2}}/>
 
                 <Box>
@@ -99,10 +134,10 @@ const AnimalDetails = () => {
                         <Typography variant="body1" color="text.secondary">Aucune information sur la
                             nourriture.</Typography>
                     ) : (
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} >
                             {animalFood.map((food, index) => (
-                                <Grid sx={{xs: 12}} key={index}>
-                                    <Card variant="outlined" sx={{p: 2}}>
+                                <Grid sx={{xs: 12, width: "100%"}} key={index}>
+                                    <Card variant="outlined" sx={{p: 2}} >
                                         <Typography variant="subtitle1"><strong>Type :</strong> {food.type}</Typography>
                                         <Typography variant="body2"><strong>Quantité
                                             :</strong> {food.quantity} g</Typography>
@@ -140,6 +175,7 @@ const AnimalDetails = () => {
                 <Button onClick={handleChangeBox} variant="contained">Valider</Button>
             </DialogActions>
         </Dialog>
+            <AddHealthCareDialog open={openHealthCareDialog} onClose={() => setOpenHealthCareDialog(false)} setOpen={setOpenHealthCareDialog} animalId={animal.id!}></AddHealthCareDialog>
         </>
     );
 };

@@ -39,7 +39,7 @@ const HealthMenu = ({healthCares}: HealthMenuProps) => {
                     </ListItemButton>
                 ))}
             </List>
-            <AddHealthCareDialog open={open} setOpen={setOpen} onClose={() => setOpen(false)}></AddHealthCareDialog>
+            <AddHealthCareDialog open={open} setOpen={setOpen} onClose={() => setOpen(false)} animalId={0}></AddHealthCareDialog>
         </>
     )
 }

@@ -26,6 +26,30 @@ export const getNextHealthCares = async () => {
         })
 }
 
+export const getAnimalHealthCares = async (animalId: number) => {
+    return api.get(`healthcare/animal/${animalId}`)
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}
+
+export const getAnimalNextHealthCare = async (animalId: number) => {
+    return api.get(`healthcare/next/animal/${animalId}`)
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}
+
 export const addHealthCare = async (dto: HealthCareDTO) => {
     return api.post(`healthcare`, dto)
         .then(res => {

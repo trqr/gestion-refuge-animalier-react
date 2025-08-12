@@ -23,9 +23,10 @@ type AddHealthCareDialogProps = {
     open: boolean;
     onClose: () => void;
     setOpen: (open: boolean) => void;
+    animalId: number;
 }
 
-const AddHealthCareDialog = ({open, onClose, setOpen}: AddHealthCareDialogProps) => {
+const AddHealthCareDialog = ({open, onClose, setOpen, animalId}: AddHealthCareDialogProps) => {
     const [selectedVetId, setSelectedVetId] = useState<number>(0);
     const [selectedAnimalId, setSelectedAnimalId] = useState<number>(0);
     const [type, setType] = useState<string>("");
@@ -37,6 +38,9 @@ const AddHealthCareDialog = ({open, onClose, setOpen}: AddHealthCareDialogProps)
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
+        if (animalId){
+            setSelectedAnimalId(animalId);
+        }
         startTransition(async () => {
             const fetchedAnimals = await getAnimals();
             const fetchedVets = await getVets();
@@ -66,6 +70,7 @@ const AddHealthCareDialog = ({open, onClose, setOpen}: AddHealthCareDialogProps)
                     value={selectedAnimalId}
                     onChange={(e) => setSelectedAnimalId(Number(e.target.value))}
                     displayEmpty
+                    disabled={animalId !== 0}
                 >
                     <MenuItem value={0} disabled>Choisir un animal</MenuItem>
                     {animals.map((animal) => (

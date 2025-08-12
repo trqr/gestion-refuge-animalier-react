@@ -1,6 +1,7 @@
 import {Card, CardContent, CardMedia, Divider, Grid, Stack, Typography} from "@mui/material";
 import type {AnimalType} from "../../../types/Animal.type.ts";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 type AnimalCardProps = {
     animal: AnimalType;
@@ -8,6 +9,8 @@ type AnimalCardProps = {
 
 const AnimalCard = ({animal}: AnimalCardProps) => {
     const navigate = useNavigate();
+    const [imgSrc, setImgSrc] = useState(animal.picture || "https://placehold.co/1200x1200");
+
     return (
         <>
             <Grid size={{xs: 12, sm: 6, md: 4}} key={animal.id}>
@@ -15,7 +18,8 @@ const AnimalCard = ({animal}: AnimalCardProps) => {
                     <CardMedia
                         component="img"
                         height="200"
-                        image={`${animal.picture}`}
+                        image={imgSrc}
+                        onError={() => setImgSrc("https://placehold.co/500x400")}
                         alt={animal.name}
                     />
                     <CardContent>
