@@ -2,6 +2,7 @@ import {useLoaderData, useRevalidator} from "react-router-dom";
 import { Paper } from "@mui/material";
 import {DataGrid, type GridColDef} from "@mui/x-data-grid";
 import {useState} from "react";
+import Page from "./layout/Page.tsx";
 
 
 const AdoptionsList = () => {
@@ -59,7 +60,7 @@ const AdoptionsList = () => {
     const paginationModel = {page: 0, pageSize: 10};
 
     return (
-        <>
+        <Page title={"Adoptions"} description={"Liste des adoptions"}>
             <Paper sx={{height: 450, width: '100%'}}>
                 <DataGrid
 
@@ -72,7 +73,7 @@ const AdoptionsList = () => {
                     sx={{border: 0}}
                 />
             </Paper>
-        </>
+        </Page>
     )
 }
 

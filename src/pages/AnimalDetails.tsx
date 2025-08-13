@@ -23,6 +23,7 @@ import type {FoodType} from "../types/Food.type.ts";
 import {getAnimalHealthCares, getAnimalNextHealthCare, getNextHealthCares} from "../api/HealthCareRequests.ts";
 import type {HealthCareType} from "../types/HealthCare.type.ts";
 import AddHealthCareDialog from "../components/common/dialogs/AddHealthCareDialog.tsx";
+import Page from "./layout/Page.tsx";
 
 const AnimalDetails = () => {
     const animal: AnimalType = useLoaderData();
@@ -58,7 +59,7 @@ const AnimalDetails = () => {
     }, [selectedBoxId]);
 
     return (
-        <>
+        <Page title={`${animal.name}`} description={`La page du ${animal.type} : ${animal.name}`} >
         <Card sx={{margin: "2rem auto", borderRadius: 4, boxShadow: 4, display: "flex"}}>
             <Box sx={{width: "45%"}}>
                 <CardMedia
@@ -176,7 +177,7 @@ const AnimalDetails = () => {
             </DialogActions>
         </Dialog>
             <AddHealthCareDialog open={openHealthCareDialog} onClose={() => setOpenHealthCareDialog(false)} setOpen={setOpenHealthCareDialog} animalId={animal.id!}></AddHealthCareDialog>
-        </>
+        </Page>
     );
 };
 

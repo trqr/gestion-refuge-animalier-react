@@ -12,17 +12,10 @@ import {
     Divider,
 } from "@mui/material";
 import React from "react";
-import {BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
 import {useLoaderData} from "react-router-dom";
 import type {AdoptionType} from "../types/Adoption.type.ts";
-
-
-const animalsByType = [
-    {type: "Chien", count: 20},
-    {type: "Chat", count: 22},
-    {type: "Lapin", count: 3},
-    {type: "Autre", count: 2},
-];
+import Page from "./layout/Page.tsx";
+import ArrivalsVsAdoptionsChart from "../components/common/charts/ArrivalsVsAdoptionsChart.tsx";
 
 const healthAlerts = [
     {animal: "Milo", issue: "Fièvre", level: "Urgent"},
@@ -34,24 +27,10 @@ const Dashboard = () => {
     const recentAdoptions = useLoaderData();
 
     return (
+        <Page title="Tableau de bord" description={"Dashboard du refuge animalier."}>
             <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6}}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                Répartition des animaux
-                            </Typography>
-                            <ResponsiveContainer width="100%" height={250}>
-                                <BarChart data={animalsByType}>
-                                    <XAxis dataKey="type"/>
-                                    <YAxis/>
-                                    <Tooltip/>
-                                    <Bar dataKey="count" fill="#1976d2"/>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </CardContent>
-                    </Card>
-                </Grid>
+
+                            <ArrivalsVsAdoptionsChart></ArrivalsVsAdoptionsChart>
 
                 <Grid size={{xs: 12, md: 6}}>
                     <Card>
@@ -105,6 +84,7 @@ const Dashboard = () => {
                     </Card>
                 </Grid>
             </Grid>
+        </Page>
     );
 };
 

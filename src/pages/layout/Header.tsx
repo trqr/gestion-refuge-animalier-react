@@ -10,13 +10,15 @@ const Header = () => {
     const navigate = useNavigate();
     return (
         <>
-            <Box sx={{display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", margin: "10px"}}>
+            <Box sx={{height: "100px",display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", margin: "10px"}}>
+                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                <img style={{height: "100px"}} src={"/refuge-animalier-icon.png"}></img>
                 <Typography variant="h4" sx={{cursor: "pointer"}}  onClick={() => navigate("/")} gutterBottom>
-                    Tableau de bord du refuge animalier
+                    Refuge animalier
                 </Typography>
+                </Box>
                 <ThemeSwitch></ThemeSwitch>
             </Box>
-
 
             <Grid container spacing={2} mb={4}>
                 <BoxStats></BoxStats>

@@ -12,7 +12,7 @@ const theme = createTheme({
                     main: '#c32581',
                 },
                 background: {
-                    default: '#f5f5f5',
+                    default: '#cfcfcf',
                 },
                 text: {
                     primary: '#000000',
