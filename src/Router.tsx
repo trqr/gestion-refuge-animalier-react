@@ -8,9 +8,14 @@ import Layout from "./pages/layout/Layout.tsx";
 import AnimalsList from "./pages/AnimalsList.tsx";
 import {getAllAdoptions, getLast5Adoptions} from "./api/AdoptionRequests.ts";
 import AdoptionsList from "./pages/AdoptionsList.tsx";
+import AuthentificationPage from "./pages/AuthentificationPage.tsx";
 
 
 export const router = createBrowserRouter([
+    {
+        path: "/login",
+        element: <AuthentificationPage/>
+    },
     {
         path: "/",
         element: <Layout/>,
