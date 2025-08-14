@@ -2,7 +2,7 @@ import {useEffect, useState, useTransition} from "react";
 import {
     LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
-import {getArrivalsVsAdoptions} from "../../../api/services/StatsService.ts";
+import {getArrivalsVsAdoptions} from "../../../api/services/Stats.service.ts";
 import {Card, CardContent, Grid, Typography} from "@mui/material";
 
 type DataPoint = {

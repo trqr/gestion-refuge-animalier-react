@@ -15,7 +15,7 @@ import {
     Link
 } from "@mui/material";
 import {Visibility, VisibilityOff, LockOutlined} from "@mui/icons-material";
-import {login} from "../../api/AuthRequests.ts";
+import {login} from "../../api/services/Auth.service.ts";
 import {useNavigate} from "react-router-dom";
 
 export type LoginDTO = {
@@ -26,13 +26,12 @@ export type LoginDTO = {
 export interface AuthBoxProps {
     title?: string;
     forgotPasswordHref?: string;
-    onSubmit?: (values: LoginDTO) => Promise<void> | void;
 }
 
 export default function AuthBox({
-                                    title = "Sign in",
+                                    title = "Connectez vous",
                                     forgotPasswordHref = "#",
-                                    onSubmit
+
                                 }: AuthBoxProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
@@ -47,14 +46,14 @@ export default function AuthBox({
     const validate = () => {
         const newErrors: { email?: string; password?: string } = {};
         if (!values.email) {
-            newErrors.email = "Email is required";
+            newErrors.email = "L'email est requis";
         } else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email)) {
-            newErrors.email = "Email is invalid";
+            newErrors.email = "Email invalide";
         }
         if (!values.password) {
-            newErrors.password = "Password is required";
+            newErrors.password = "Le mot de passe est requis";
         } else if (values.password.length < 8) {
-            newErrors.password = "Password must be at least 8 characters";
+            newErrors.password = "Le mot de passe doit avoir au moins 8 caracteres";
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -69,9 +68,13 @@ export default function AuthBox({
     const submit = async () => {
         if (!validate()) return;
         startTransition( async () => {
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
             const authData = await login(values);
             if (authData.user){
                 navigate("/");
+            } else {
+                setServerError(authData.response.data);
             }
             console.log(authData);
         })
@@ -93,7 +96,7 @@ export default function AuthBox({
                 <CardHeader
                     avatar={<LockOutlined color="primary"/>}
                     title={<Typography variant="h5">{title}</Typography>}
-                    subheader={<Typography variant="body2">Welcome back — please sign in</Typography>}
+                    subheader={<Typography variant="body2">Bonjour, saisissez vos identifiants</Typography>}
                 />
                 <CardContent sx={{pt: 0, display: "grid", gap: 2}}>
                     {serverError && (
@@ -115,7 +118,7 @@ export default function AuthBox({
                     />
 
                     <TextField
-                        label="Password"
+                        label="Mot de passe"
                         type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         fullWidth
@@ -142,7 +145,7 @@ export default function AuthBox({
 
                     <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <Link href={forgotPasswordHref} underline="hover">
-                            Forgot password?
+                            Mot de passe perdu?
                         </Link>
                     </Box>
                 </CardContent>
@@ -155,7 +158,7 @@ export default function AuthBox({
                         onClick={submit}
                         disabled={isPending}
                     >
-                        {isPending ? "Signing in…" : "Sign in"}
+                        {isPending ? "Connexion en cours..." : "Se connecter"}
                     </Button>
                 </CardActions>
             </Card>

@@ -1,4 +1,4 @@
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Typography} from "@mui/material";
 import ThemeSwitch from "../../theme/ThemeSwitch.tsx";
 import BoxStats from "../../components/common/header/BoxStats.tsx";
 import AnimalStats from "../../components/common/header/AnimalStats.tsx";
@@ -8,6 +8,12 @@ import AdoptionStats from "../../components/common/header/AdoptionStats.tsx";
 
 const Header = () => {
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("RAtoken");
+        navigate("/login");
+    }
+
     return (
         <>
             <Box sx={{height: "100px",display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", margin: "10px"}}>
@@ -17,7 +23,10 @@ const Header = () => {
                     Refuge animalier
                 </Typography>
                 </Box>
-                <ThemeSwitch></ThemeSwitch>
+                <Box>
+                    <ThemeSwitch></ThemeSwitch>
+                    <Button variant={"text"} onClick={handleLogout}>Se déconnecter</Button>
+                </Box>
             </Box>
 
             <Grid container spacing={2} mb={4}>

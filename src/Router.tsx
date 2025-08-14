@@ -9,6 +9,7 @@ import AnimalsList from "./pages/AnimalsList.tsx";
 import {getAllAdoptions, getLast5Adoptions} from "./api/AdoptionRequests.ts";
 import AdoptionsList from "./pages/AdoptionsList.tsx";
 import AuthentificationPage from "./pages/AuthentificationPage.tsx";
+import ProtectedRoute from "./components/common/ProtectedRoute.tsx";
 
 
 export const router = createBrowserRouter([
@@ -18,7 +19,11 @@ export const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <Layout/>,
+        element: (
+            <ProtectedRoute>
+                <Layout/>
+            </ProtectedRoute>
+        ),
         children: [
             {
                 path: "/",
