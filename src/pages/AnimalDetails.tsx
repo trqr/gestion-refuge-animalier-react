@@ -13,7 +13,7 @@ import {
     MenuItem
 } from "@mui/material";
 import type {AnimalType} from "../types/Animal.type.ts";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useRevalidator} from "react-router-dom";
 import {useEffect, useState, useTransition} from "react";
 import type {BoxDetailsType} from "../types/BoxDetails.type.ts";
 import {getAllBoxes} from "../api/BoxRequests.ts";
@@ -37,9 +37,11 @@ const AnimalDetails = () => {
     const [selectedBoxId, setSelectedBoxId] = useState<number>(animal.boxId);
     const [imgSrc, setImgSrc] = useState(animal.picture || "https://placehold.co/1200x1200");
     const [isPending, startTransition] = useTransition()
+    const {revalidate} = useRevalidator();
 
     const handleChangeBox = async () => {
         await boxSwitching(animal!, selectedBoxId);
+        await revalidate()
         setOpenDialog(false);
     };
 
@@ -56,7 +58,7 @@ const AnimalDetails = () => {
             setAnimalHealthCares(fetchedHealthCares);
             setNextHealthCare(fetchedNextHealthCare);
         })
-    }, [selectedBoxId]);
+    }, [selectedBoxId, openDialog, openHealthCareDialog]);
 
     return (
         <Page title={`${animal.name}`} description={`La page du ${animal.type} : ${animal.name}`} >
