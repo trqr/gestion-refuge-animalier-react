@@ -14,6 +14,18 @@ export const getAnimals = async () => {
         })
 }
 
+export const getNotAdoptedAnimals = async () => {
+    return api.get('/animals/not-adopted')
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}
+
 export const getAnimalById = async (animalId: string) => {
     return api.get('/animals/' + animalId)
         .then(res => {

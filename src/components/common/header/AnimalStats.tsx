@@ -1,7 +1,5 @@
 import {Box, Grid, Paper, Skeleton, Typography} from "@mui/material";
-import BoxMenu from "./BoxMenu.tsx";
 import {useEffect, useState, useTransition} from "react";
-import {getNumberOfBoxes, getNumberOfUsedBoxes} from "../../../api/BoxRequests.ts";
 import {getNumberOfAnimals} from "../../../api/AnimalRequests.ts";
 import AnimalMenu from "./AnimalMenu.tsx";
 

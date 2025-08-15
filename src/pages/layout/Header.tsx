@@ -23,7 +23,7 @@ const Header = () => {
                     Refuge animalier
                 </Typography>
                 </Box>
-                <Box>
+                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <ThemeSwitch></ThemeSwitch>
                     <Button variant={"text"} onClick={handleLogout}>Se déconnecter</Button>
                 </Box>

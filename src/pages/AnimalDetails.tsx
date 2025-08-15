@@ -20,7 +20,7 @@ import {getAllBoxes} from "../api/BoxRequests.ts";
 import {boxSwitching, getAnimalBox} from "../api/AnimalRequests.ts";
 import {getAnimalFood} from "../api/FoodRequests.ts";
 import type {FoodType} from "../types/Food.type.ts";
-import {getAnimalHealthCares, getAnimalNextHealthCare, getNextHealthCares} from "../api/HealthCareRequests.ts";
+import {getAnimalHealthCares, getAnimalNextHealthCare} from "../api/HealthCareRequests.ts";
 import type {HealthCareType} from "../types/HealthCare.type.ts";
 import AddHealthCareDialog from "../components/common/dialogs/AddHealthCareDialog.tsx";
 import Page from "./layout/Page.tsx";
@@ -90,7 +90,9 @@ const AnimalDetails = () => {
                             <Button
                                 sx={{margin: "0 10px"}}
                                 size={"small"}
-                            variant="contained" onClick={() => setOpenDialog(true)}>
+                                variant="contained"
+                                onClick={() => setOpenDialog(true)}
+                                disabled={isPending}>
                             Changer de box
                         </Button></Typography>
                     </Grid>

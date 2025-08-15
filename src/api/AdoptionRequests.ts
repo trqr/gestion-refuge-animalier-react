@@ -52,3 +52,31 @@ export const getLast5Adoptions = async () => {
         })
 }
 
+export const validateAdoption = async (adoptionIds: number[]) => {
+    await api.patch("/adoption", {adoptionIds: adoptionIds})
+        .then(res => {
+            console.log(res.data);
+            toast.success("Adoption(s) validée(s) avec succés.");
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            toast.error(err.response.data);
+            return err;
+        })
+}
+
+export const cancelAdoption = async (adoptionIds: number[]) => {
+    await api.patch("/adoption/cancel", {adoptionIds: adoptionIds})
+        .then(res => {
+            console.log(res.data);
+            toast.success("Adoption(s) annulé(s) avec succés.");
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            toast.error(err.response.data);
+            return err;
+        })
+}
+

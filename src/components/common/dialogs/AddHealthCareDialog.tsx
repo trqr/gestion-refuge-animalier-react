@@ -9,7 +9,7 @@ import {
     TextField
 } from "@mui/material";
 import {useEffect, useState, useTransition} from "react";
-import {getAnimals} from "../../../api/AnimalRequests.ts";
+import {getNotAdoptedAnimals} from "../../../api/AnimalRequests.ts";
 import {getVets} from "../../../api/VetsRequests.ts";
 import {DatePicker} from "@mui/x-date-pickers";
 import type {AnimalType} from "../../../types/Animal.type.ts";
@@ -42,7 +42,7 @@ const AddHealthCareDialog = ({open, onClose, setOpen, animalId}: AddHealthCareDi
             setSelectedAnimalId(animalId);
         }
         startTransition(async () => {
-            const fetchedAnimals = await getAnimals();
+            const fetchedAnimals = await getNotAdoptedAnimals();
             const fetchedVets = await getVets();
             setAnimals(fetchedAnimals);
             setVets(fetchedVets);

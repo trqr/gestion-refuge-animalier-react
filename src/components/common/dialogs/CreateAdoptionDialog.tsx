@@ -1,7 +1,7 @@
 import {useEffect, useState, useTransition} from "react";
 import type {AnimalType} from "../../../types/Animal.type.ts";
 import {type AdoptionDTO, emptyAdoptionDTO} from "../../../types/DTOs/AdoptionDTO.ts";
-import {getAnimals} from "../../../api/AnimalRequests.ts";
+import { getNotAdoptedAnimals} from "../../../api/AnimalRequests.ts";
 import {
     Button,
     Dialog,
@@ -35,7 +35,7 @@ const CreateAdoptionDialog = ({open, setOpen}: CreateAdoptionDialogProps) => {
 
     useEffect(() => {
         startTransition( async () => {
-            const fetchedAnimals = await getAnimals();
+            const fetchedAnimals = await getNotAdoptedAnimals();
             setAnimals(fetchedAnimals);
         })
     }, []);

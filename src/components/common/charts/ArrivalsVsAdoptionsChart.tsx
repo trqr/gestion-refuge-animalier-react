@@ -25,6 +25,7 @@ const ArrivalsVsAdoptionsChart = () => {
     return (
         <Grid size={{xs: 12, md: 6}}>
             <Card>
+                {!isPending &&
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
                         Courbe des arrivées contre adoptions
@@ -41,6 +42,7 @@ const ArrivalsVsAdoptionsChart = () => {
                         </LineChart>
                     </ResponsiveContainer>
                 </CardContent>
+                }
             </Card>
         </Grid>
     );

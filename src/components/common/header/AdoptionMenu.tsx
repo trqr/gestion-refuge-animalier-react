@@ -1,4 +1,4 @@
-import {Icon, IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import { IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {useState} from "react";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import RuleIcon from '@mui/icons-material/Rule';

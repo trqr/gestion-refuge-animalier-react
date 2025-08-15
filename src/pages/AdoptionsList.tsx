@@ -1,8 +1,9 @@
 import {useLoaderData, useRevalidator} from "react-router-dom";
-import { Paper } from "@mui/material";
+import {Box, Button, Paper, Typography} from "@mui/material";
 import {DataGrid, type GridColDef} from "@mui/x-data-grid";
 import {useState} from "react";
 import Page from "./layout/Page.tsx";
+import {cancelAdoption, validateAdoption} from "../api/AdoptionRequests.ts";
 
 
 const AdoptionsList = () => {
@@ -59,6 +60,18 @@ const AdoptionsList = () => {
 
     const paginationModel = {page: 0, pageSize: 10};
 
+    const handleValidateAdoptions = async () => {
+        await validateAdoption(selectedRows);
+        await revalidate();
+        setSelectedRows([]);
+    }
+
+    const handleCancelAdoptions = async () => {
+        await cancelAdoption(selectedRows);
+        await revalidate();
+        setSelectedRows([]);
+    }
+
     return (
         <Page title={"Adoptions"} description={"Liste des adoptions"}>
             <Paper sx={{height: 450, width: '100%'}}>
@@ -73,6 +86,32 @@ const AdoptionsList = () => {
                     sx={{border: 0}}
                 />
             </Paper>
+            {selectedRows.length > 0 && (
+                <Paper sx={{p: 2, mt: 2}}>
+                    <Typography variant="body1">
+                        {selectedRows.length} order(s) selected: {selectedRows.join(', ')}
+                    </Typography>
+                    <Box sx={{mt: 3, display: "flex", alignItems: "center", gap: 2}}>
+
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={!selectedRows}
+                            onClick={handleValidateAdoptions}
+                        >
+                            Valider le(s) dossier(s)
+                        </Button>
+
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            onClick={handleCancelAdoptions}
+                        >
+                            Supprimer le(s) dossier(s)
+                        </Button>
+                    </Box>
+                </Paper>
+            )}
         </Page>
     )
 }

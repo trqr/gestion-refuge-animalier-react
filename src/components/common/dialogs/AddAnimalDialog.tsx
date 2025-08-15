@@ -124,7 +124,7 @@ const AddAnimalDialog = ({
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Annuler</Button>
-                <Button onClick={onSubmit} variant="contained">Ajouter</Button>
+                <Button onClick={onSubmit} variant="contained" disabled={isPending}>Ajouter</Button>
             </DialogActions>
         </Dialog>
     );
