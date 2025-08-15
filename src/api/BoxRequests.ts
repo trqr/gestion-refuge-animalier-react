@@ -75,3 +75,17 @@ export const createBox = async (box: BoxDetailsType) => {
             return err;
         })
 }
+
+export const deleteBox = async (boxId: number) => {
+    return api.delete(`boxes/${boxId}`, )
+        .then(res => {
+            toast.success(`Le box ${boxId} a été supprimé avec succés.`);
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            toast.error(err.response.data);
+            console.log(err);
+            return err;
+        })
+}
