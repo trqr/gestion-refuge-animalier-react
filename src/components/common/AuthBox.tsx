@@ -29,7 +29,7 @@ export interface AuthBoxProps {
 }
 
 export default function AuthBox({
-                                    title = "Connectez vous",
+                                    title = "Connectez-vous",
                                     forgotPasswordHref = "#",
 
                                 }: AuthBoxProps) {
@@ -53,7 +53,7 @@ export default function AuthBox({
         if (!values.password) {
             newErrors.password = "Le mot de passe est requis";
         } else if (values.password.length < 8) {
-            newErrors.password = "Le mot de passe doit avoir au moins 8 caracteres";
+            newErrors.password = "Le mot de passe doit avoir au moins 8 caractères";
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -145,7 +145,7 @@ export default function AuthBox({
 
                     <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <Link href={forgotPasswordHref} underline="hover">
-                            Mot de passe perdu?
+                            Mot de passe oublié ?
                         </Link>
                     </Box>
                 </CardContent>
