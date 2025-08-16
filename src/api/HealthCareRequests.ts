@@ -26,6 +26,18 @@ export const getNextHealthCares = async () => {
         })
 }
 
+export const getHealthCareById = async (healthCareId: string) => {
+    return api.get(`healthcare/${healthCareId}`)
+        .then(res => {
+            console.log(res.data);
+            return res.data
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        })
+}
+
 export const getAnimalHealthCares = async (animalId: number) => {
     return api.get(`healthcare/animal/${animalId}`)
         .then(res => {

@@ -13,7 +13,7 @@ import {
     MenuItem
 } from "@mui/material";
 import type {AnimalType} from "../types/Animal.type.ts";
-import {useLoaderData, useRevalidator} from "react-router-dom";
+import {useLoaderData, useNavigate, useRevalidator} from "react-router-dom";
 import {useEffect, useState, useTransition} from "react";
 import type {BoxDetailsType} from "../types/BoxDetails.type.ts";
 import {getAllBoxes} from "../api/BoxRequests.ts";
@@ -38,6 +38,7 @@ const AnimalDetails = () => {
     const [imgSrc, setImgSrc] = useState(animal.picture || "https://placehold.co/1200x1200");
     const [isPending, startTransition] = useTransition()
     const {revalidate} = useRevalidator();
+    const navigate = useNavigate();
 
     const handleChangeBox = async () => {
         await boxSwitching(animal!, selectedBoxId);
@@ -112,13 +113,23 @@ const AnimalDetails = () => {
                                 ? `${nextHealthCare.type} le ${nextHealthCare.date} (Vétérinaire : ${nextHealthCare.veterinarian.name})`
                                 : "Aucun rendez-vous prévu."}
                         </Typography>
+                        {nextHealthCare && (
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                onClick={() => navigate(`/healthcare/${nextHealthCare.id}`)}
+                            >
+                                Voir le soin
+                            </Button>
+                        )}
                         <Button variant={"contained"} size={"small"} sx={{width: "50%"}} onClick={() => setOpenHealthCareDialog(true)}>Prendre un rdv</Button>
                     </Grid>
                     <Grid size={{xs: 6}}>
                         <Typography variant="h6" gutterBottom>Soins</Typography>
                         {animalHealthCares.length === 0 ? <Typography> Aucun soin sur cet animal.</Typography>
                         : animalHealthCares.map((healthCare: HealthCareType) =>
-                                <Card key={healthCare.id} variant="outlined" sx={{p: 2}}>
+                                <Card key={healthCare.id} variant="outlined" sx={{p: 2, cursor:"pointer"}} onClick={() => navigate(`/healthcare/${healthCare.id}`)}>
                                     <Typography variant="subtitle1">{healthCare.type} le {healthCare.date}</Typography>
                                     <Typography variant="body2"><strong>Vétérinaire
                                         :</strong> {healthCare.veterinarian.name}</Typography>

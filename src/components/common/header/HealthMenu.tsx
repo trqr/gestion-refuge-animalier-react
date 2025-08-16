@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import AddHealthCareDialog from "../dialogs/AddHealthCareDialog.tsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 type HealthMenuProps = {
@@ -14,6 +15,7 @@ type HealthMenuProps = {
 const HealthMenu = ({healthCares}: HealthMenuProps) => {
     dayjs.extend(relativeTime);
     const [open, setOpen] = useState<boolean>(false)
+    const navigate = useNavigate();
 
     return (
         <>
@@ -29,7 +31,7 @@ const HealthMenu = ({healthCares}: HealthMenuProps) => {
                     </ListItem>
                 </ListItemButton>
                 {healthCares.map(healthCare => (
-                    <ListItemButton key={healthCare.id}>
+                    <ListItemButton key={healthCare.id} onClick={() => navigate(`/healthcare/${healthCare.id}`)}>
                         <ListItem secondaryAction={<Typography variant={"subtitle2"}>{dayjs().to(dayjs(healthCare.date))}</Typography>}>
                             <ListItemText
                                 primary={healthCare.type}

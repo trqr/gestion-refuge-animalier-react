@@ -10,6 +10,8 @@ import {getAllAdoptions, getLast5Adoptions} from "./api/AdoptionRequests.ts";
 import AdoptionsList from "./pages/AdoptionsList.tsx";
 import AuthentificationPage from "./pages/AuthentificationPage.tsx";
 import ProtectedRoute from "./components/common/ProtectedRoute.tsx";
+import HealthCareDetails from "./pages/HealthCareDetails.tsx";
+import {getHealthCareById} from "./api/HealthCareRequests.ts";
 
 
 export const router = createBrowserRouter([
@@ -49,7 +51,12 @@ export const router = createBrowserRouter([
                 path: "/adoptions",
                 element: <AdoptionsList/>,
                 loader: (() => getAllAdoptions())
-            }
+            },
+            {
+                path: "/healthcare/:id",
+                element: <HealthCareDetails/>,
+                loader: (({params: {id}}) => getHealthCareById(id!))
+            },
         ]
     }
 ]);
