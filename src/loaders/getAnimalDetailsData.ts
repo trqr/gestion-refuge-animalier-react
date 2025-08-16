@@ -4,7 +4,7 @@ import {getAllBoxes} from "../api/BoxRequests";
 import {getAnimalFood} from "../api/FoodRequests";
 import {getAnimalHealthCares, getAnimalNextHealthCare} from "../api/HealthCareRequests";
 
-export const animalDetailsLoader: LoaderFunction = async ({params}) => {
+export const getAnimalDetailsData: LoaderFunction = async ({params}) => {
     const idParam = params.id;
     if (!idParam) {
         throw new Error("No animal ID provided");

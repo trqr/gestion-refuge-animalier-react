@@ -6,13 +6,14 @@ import {getAnimals} from "./api/AnimalRequests.ts";
 import AnimalDetails from "./pages/AnimalDetails.tsx";
 import Layout from "./pages/layout/Layout.tsx";
 import AnimalsList from "./pages/AnimalsList.tsx";
-import {getAllAdoptions, getLast5Adoptions} from "./api/AdoptionRequests.ts";
+import {getAllAdoptions} from "./api/AdoptionRequests.ts";
 import AdoptionsList from "./pages/AdoptionsList.tsx";
 import AuthentificationPage from "./pages/AuthentificationPage.tsx";
 import ProtectedRoute from "./components/common/ProtectedRoute.tsx";
 import HealthCareDetails from "./pages/HealthCareDetails.tsx";
 import {getHealthCareById} from "./api/HealthCareRequests.ts";
-import {animalDetailsLoader} from "./loaders/animalDetailsLoader.ts";
+import {getAnimalDetailsData} from "./loaders/getAnimalDetailsData.ts";
+import {getDashboardData} from "./loaders/getDashboardData.ts";
 
 
 export const router = createBrowserRouter([
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Dashboard/>,
-                loader: () => getLast5Adoptions()
+                loader: getDashboardData,
             },
             {
                 path: "/box/:id",
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
             {
                 path: "/animal/:id",
                 element: <AnimalDetails/>,
-                loader: animalDetailsLoader,
+                loader: getAnimalDetailsData,
             },
             {
                 path: "/adoptions",

@@ -37,7 +37,7 @@ const Dashboard = () => {
         <Page title="Tableau de bord" description={"Dashboard du refuge animalier."}>
             <Grid container spacing={3}>
 
-                            <ArrivalsVsAdoptionsChart></ArrivalsVsAdoptionsChart>
+                <ArrivalsVsAdoptionsChart/>
 
                 <Grid size={{xs: 12, md: 6}}>
                     <Card>
