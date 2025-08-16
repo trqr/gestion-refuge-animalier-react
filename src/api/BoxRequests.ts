@@ -77,15 +77,13 @@ export const createBox = async (box: BoxDetailsType) => {
 }
 
 export const deleteBox = async (boxId: number) => {
-    return api.delete(`boxes/${boxId}`, )
-        .then(res => {
-            toast.success(`Le box ${boxId} a été supprimé avec succés.`);
-            console.log(res.data);
-            return res.data
-        })
-        .catch(err => {
-            toast.error(err.response.data);
-            console.log(err);
-            return err;
-        })
+    try {
+        const res = await api.delete(`boxes/${boxId}`);
+        toast.success(`Le box ${boxId} a été supprimé avec succès.`);
+        return res.data;
+    } catch (err: unknown) {
+        // @ts-expect-error dqsdqsdsqd
+        toast.error(err.response?.data || "Erreur lors de la suppression.");
+        throw err;
+    }
 }

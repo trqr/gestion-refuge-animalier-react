@@ -10,8 +10,13 @@ const BoxDetails = () => {
     const navigate = useNavigate();
 
     const handleBoxDelete = async () => {
-        await deleteBox(boxData.id!);
-        navigate("/");
+        try {
+            await deleteBox(boxData.id!);
+            navigate("/");
+        } catch (e){
+            console.error("Erreur suppression :", e);
+        }
+
     }
 
     return (

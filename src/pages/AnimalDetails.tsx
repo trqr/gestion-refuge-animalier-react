@@ -14,51 +14,37 @@ import {
 } from "@mui/material";
 import type {AnimalType} from "../types/Animal.type.ts";
 import {useLoaderData, useNavigate, useRevalidator} from "react-router-dom";
-import {useEffect, useState, useTransition} from "react";
+import {useEffect, useState} from "react";
 import type {BoxDetailsType} from "../types/BoxDetails.type.ts";
-import {getAllBoxes} from "../api/BoxRequests.ts";
-import {boxSwitching, getAnimalBox} from "../api/AnimalRequests.ts";
-import {getAnimalFood} from "../api/FoodRequests.ts";
+import {boxSwitching} from "../api/AnimalRequests.ts";
 import type {FoodType} from "../types/Food.type.ts";
-import {getAnimalHealthCares, getAnimalNextHealthCare} from "../api/HealthCareRequests.ts";
 import type {HealthCareType} from "../types/HealthCare.type.ts";
 import AddHealthCareDialog from "../components/common/dialogs/AddHealthCareDialog.tsx";
 import Page from "./layout/Page.tsx";
 
 const AnimalDetails = () => {
-    const animal: AnimalType = useLoaderData();
-    const [boxes, setBoxes] = useState<BoxDetailsType[]>([]);
-    const [animalBox, setAnimalBox] = useState<BoxDetailsType>()
-    const [animalFood, setAnimalFood] = useState<FoodType[]>([]);
-    const [animalHealthCares, setAnimalHealthCares] = useState<HealthCareType[]>([])
-    const [nextHealthCare, setNextHealthCare] = useState<HealthCareType | null>(null);
+    const {animal, boxes, animalBox, animalFood, animalHealthCares, nextHealthCare}= useLoaderData<{
+        animal: AnimalType;
+        boxes: BoxDetailsType[];
+        animalBox: BoxDetailsType;
+        animalFood: FoodType[];
+        animalHealthCares: HealthCareType[];
+        nextHealthCare: HealthCareType | null;
+    }>()
     const [openDialog, setOpenDialog] = useState(false);
     const [openHealthCareDialog, setOpenHealthCareDialog] = useState(false);
     const [selectedBoxId, setSelectedBoxId] = useState<number>(animal.boxId);
     const [imgSrc, setImgSrc] = useState(animal.picture || "https://placehold.co/1200x1200");
-    const [isPending, startTransition] = useTransition()
     const {revalidate} = useRevalidator();
     const navigate = useNavigate();
 
     const handleChangeBox = async () => {
         await boxSwitching(animal!, selectedBoxId);
-        await revalidate()
         setOpenDialog(false);
     };
 
     useEffect(() => {
-        startTransition(async () => {
-            const fetchedBoxes: BoxDetailsType[] = await getAllBoxes();
-            const fetchedAnimalBox: BoxDetailsType = await getAnimalBox(animal.id!);
-            const fetchedFood: FoodType[] = await getAnimalFood(animal.id!);
-            const fetchedHealthCares = await getAnimalHealthCares(animal.id!)
-            const fetchedNextHealthCare = await getAnimalNextHealthCare(animal.id!)
-            setBoxes(fetchedBoxes);
-            setAnimalBox(fetchedAnimalBox);
-            setAnimalFood(fetchedFood);
-            setAnimalHealthCares(fetchedHealthCares);
-            setNextHealthCare(fetchedNextHealthCare);
-        })
+        revalidate().then(r => r);
     }, [selectedBoxId, openDialog, openHealthCareDialog]);
 
     return (
@@ -94,8 +80,7 @@ const AnimalDetails = () => {
                                 sx={{margin: "0 10px"}}
                                 size={"small"}
                                 variant="contained"
-                                onClick={() => setOpenDialog(true)}
-                                disabled={isPending}>
+                                onClick={() => setOpenDialog(true)}>
                             Changer de box
                         </Button></Typography>
                     </Grid>

@@ -2,7 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
 import {getBoxById} from "./api/BoxRequests.ts";
 import BoxDetails from "./pages/BoxDetails.tsx";
-import {getAnimalById, getAnimals} from "./api/AnimalRequests.ts";
+import {getAnimals} from "./api/AnimalRequests.ts";
 import AnimalDetails from "./pages/AnimalDetails.tsx";
 import Layout from "./pages/layout/Layout.tsx";
 import AnimalsList from "./pages/AnimalsList.tsx";
@@ -12,6 +12,7 @@ import AuthentificationPage from "./pages/AuthentificationPage.tsx";
 import ProtectedRoute from "./components/common/ProtectedRoute.tsx";
 import HealthCareDetails from "./pages/HealthCareDetails.tsx";
 import {getHealthCareById} from "./api/HealthCareRequests.ts";
+import {animalDetailsLoader} from "./loaders/animalDetailsLoader.ts";
 
 
 export const router = createBrowserRouter([
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
             {
                 path: "/animal/:id",
                 element: <AnimalDetails/>,
-                loader: (({params: {id}}) => getAnimalById(id!))
+                loader: animalDetailsLoader,
             },
             {
                 path: "/adoptions",
