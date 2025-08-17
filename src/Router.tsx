@@ -1,8 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
-import {getBoxById} from "./api/BoxRequests.ts";
 import BoxDetails from "./pages/BoxDetails.tsx";
-import {getAnimals} from "./api/AnimalRequests.ts";
 import AnimalDetails from "./pages/AnimalDetails.tsx";
 import Layout from "./pages/layout/Layout.tsx";
 import AnimalsList from "./pages/AnimalsList.tsx";
@@ -14,6 +12,10 @@ import HealthCareDetails from "./pages/HealthCareDetails.tsx";
 import {getHealthCareById} from "./api/HealthCareRequests.ts";
 import {getAnimalDetailsData} from "./loaders/getAnimalDetailsData.ts";
 import {getDashboardData} from "./loaders/getDashboardData.ts";
+import {getBoxDetailsData} from "./loaders/getBoxDetailsData.ts";
+import {getAnimalsListData} from "./loaders/getAnimalsListData.ts";
+import {getAdoptionsListData} from "./loaders/getAdoptionsListData.ts";
+import {getHealthCareDetailsData} from "./loaders/getHealthCareDetailsData.ts";
 
 
 export const router = createBrowserRouter([
@@ -37,12 +39,12 @@ export const router = createBrowserRouter([
             {
                 path: "/box/:id",
                 element: <BoxDetails/>,
-                loader: (({params: {id}}) => getBoxById(id!))
+                loader: getBoxDetailsData,
             },
             {
                 path: "/animals",
                 element: <AnimalsList/>,
-                loader: (() => getAnimals())
+                loader: getAnimalsListData,
             },
             {
                 path: "/animal/:id",
@@ -52,12 +54,12 @@ export const router = createBrowserRouter([
             {
                 path: "/adoptions",
                 element: <AdoptionsList/>,
-                loader: (() => getAllAdoptions())
+                loader: getAdoptionsListData,
             },
             {
                 path: "/healthcare/:id",
                 element: <HealthCareDetails/>,
-                loader: (({params: {id}}) => getHealthCareById(id!))
+                loader: getHealthCareDetailsData,
             },
         ]
     }
