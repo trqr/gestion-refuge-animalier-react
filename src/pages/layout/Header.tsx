@@ -17,9 +17,9 @@ const Header = () => {
     return (
         <>
             <Box sx={{height: "100px",display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", margin: "10px"}}>
-                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                <img style={{height: "100px"}} src={"/refuge-animalier-icon.png"}></img>
-                <Typography variant="h4" sx={{cursor: "pointer"}}  onClick={() => navigate("/")} gutterBottom>
+                <Box sx={{display: "flex", alignItems: "center", gap:  2}}>
+                <img style={{height: "100px"}} src={"/refuge-animalier-icon.png"} alt={"logo refuge"}></img>
+                <Typography variant="h4" sx={{cursor: "pointer", textAlign: "center"}}  onClick={() => navigate("/")}>
                     Refuge animalier
                 </Typography>
                 </Box>
